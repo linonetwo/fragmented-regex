@@ -54,7 +54,8 @@ const context = {
   根据: '根据 对照 按照',
   公司: '公司 发行人',
   所从事的: /所(处|属|从事)[的]?/,
-  是: '于 为 是 属 属于'
+  是: '于 为 是 属 属于',
+  '<>': ''
 };
 
 const 主营业务均 = re({ context })`
@@ -67,6 +68,16 @@ const moneyParser = re({ context })`
 `;
 
 ```
+
+### Debugging
+
+Sometimes regex stops working and it's too complex to figure out.
+
+We can reduce parser to smaller fragments so that we can use Exclusion: "These fragments all matched, so the only fragment that does not match, is the cause."
+
+To split parser into smaller fragments, we imply:
+
+1. 
 
 ## Motivation
 
