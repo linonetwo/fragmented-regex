@@ -32,6 +32,9 @@ And end up with ```根据(?P<underwriting_policy>[^，]*?(的)?(规定)?)，```.
 
 Those ```(的)?(规定)?``` are obstacles that blocks parsing.
 
+#### Partition based tolerance
+
+If there is a literal based fragment (especially chinese literals), and partition based Levenshtein distance below a threshold, then this fragment is regarded matched.
 
 ### Thesaurus
 
@@ -73,11 +76,17 @@ const moneyParser = re({ context })`
 
 Sometimes regex stops working and it's too complex to figure out.
 
-We can reduce parser to smaller fragments so that we can use Exclusion: "These fragments all matched, so the only fragment that does not match, is the cause."
+We can reduce parser to smaller fragments so that we can use Exclusion: "These fragments all matched, so the only fragment that does not match, is what we should investigate in."
 
 To split parser into smaller fragments, we imply:
 
-1. 
+1. We regard strings as anchor and anchor is joined by .*
+1. In a group, we join different mutation of a pattern by |
+
+There are other benefits:
+
+1. We can get statistic data about each fragments' matching result
+1. Fragments' matching result can be stored into a dictionary for later AI training
 
 ## Motivation
 
@@ -93,6 +102,7 @@ It should:
 - Handle obstacle that blocks parsing
 - Generate example for visual debugging
 - Tells why it doesn't match
+- Parser looks like an example that it will match
 
 ## Design Philosophy
 
