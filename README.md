@@ -1,6 +1,6 @@
 # fragmented-regex
 
-Maintainable regex, Shareable regex, Extended regex and Splendid regex. Power regex with the best bits of ES6 and the parser combinator.
+Maintainable regex, Shareable regex, Extended regex for data extraction. Powered by tagged template literal and parser combinator.
 
 ## Usage
 
