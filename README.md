@@ -4,6 +4,8 @@ Maintainable regex, Shareable regex, Extended regex for data extraction. Powered
 
 ## Usage
 
+[[✍️Not implemented yet!!]]
+
 ```javascript
 import re from 'fragmented-regex';
 
@@ -20,21 +22,21 @@ const getResult = re`
 `;
 ```
 
-### Obstacles
+### Domain specific parser
 
-After a pattern was wrote, it will be blocked by some slight mutation in natural language from time to time.
+You may have a parser that can detect name in a string. Now you can combine it with regex like this:
 
-You may write ```根据(?P<underwriting_policy>[^，]*规定)，``` at the first time.
+```javascript
+import re, { wrap } from 'fragmented-regex';
+import isChineseName from 'is-chinese-name';
 
-Then change it to ```根据(?P<underwriting_policy>[^，]*?(的)?规定)，``` due to some mutation in natural language.
+const chineseName = wrap(isChineseName);
 
-And end up with ```根据(?P<underwriting_policy>[^，]*?(的)?(规定)?)，```.
+const dismissParser = re`
+(?P<name>${chineseName})(?P<gender>男|女).*(?P<reason>任职期将满|任期届满)
+`;
 
-Those ```(的)?(规定)?``` are obstacles that blocks parsing.
-
-#### Partition based tolerance
-
-If there is a literal based fragment (especially chinese literals), and partition based Levenshtein distance below a threshold, then this fragment is regarded matched.
+```
 
 ### Thesaurus
 
@@ -88,6 +90,22 @@ There are other benefits:
 1. We can get statistic data about each fragments' matching result
 1. Fragments' matching result can be stored into a dictionary for later AI training
 
+### Obstacles (RFC)
+
+After a pattern was wrote, it will be blocked by some slight mutation in natural language from time to time.
+
+You may write ```根据(?P<underwriting_policy>[^，]*规定)，``` at the first time.
+
+Then change it to ```根据(?P<underwriting_policy>[^，]*?(的)?规定)，``` due to some mutation in natural language.
+
+And end up with ```根据(?P<underwriting_policy>[^，]*?(的)?(规定)?)，```.
+
+Those ```(的)?(规定)?``` are obstacles that blocks parsing.
+
+#### Partition based tolerance
+
+If there is a literal based fragment (especially chinese literals), and partition based Levenshtein distance below a threshold, then this fragment is regarded matched.
+
 ## Motivation
 
 Dealing with string was a wordy job. For example, CSS and RegExp, they were derived from business needs, suffered from rapid change and will eventually grow into an unrefactorable enormous string.
@@ -100,7 +118,7 @@ It should:
 
 - Allow refactor of literals and regex groups
 - Handle obstacle that blocks parsing
-- Generate example for visual debugging
+- Generate example for visual debugging and snapshot testing (for regression)
 - Tells why it doesn't match
 - Parser looks like an example that it will match
 
