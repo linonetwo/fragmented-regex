@@ -4,7 +4,7 @@ Maintainable regex, Shareable regex, Extended regex for data extraction. Powered
 
 ## Usage
 
-[[✍️Not implemented yet!!]]
+✍️Not implemented yet!!
 
 ```javascript
 import re from 'fragmented-regex';
@@ -73,6 +73,8 @@ const moneyParser = re({ context })`
 `;
 
 ```
+
+Parser is now two dimensional, one is the pattern, another is the thesaurus.
 
 ### Debugging
 
