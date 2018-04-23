@@ -126,8 +126,8 @@ It should:
 
 ## Design Philosophy
 
-Initially discussed in [this thread](https://github.com/GregRos/parjs/issues/4#issuecomment-379176500).
-
 - Use business-independent block to build pattern that reads similar to some string appears in your business
 - Utilize human's builtin pattern matching when debugging
 - Can include optional metadata to enable advanced usages
+
+Got inspired in [this thread](https://github.com/GregRos/parjs/issues/4#issuecomment-379176500).
